@@ -1,23 +1,14 @@
-import logo from "./logo.svg";
-import "./App.css";
+import ExpenseCard from "./components";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <ExpenseCard
+        title="Grocery Shopping"
+        amount={1200}
+        category="Food"
+        date="22 Feb 2026"
+      />
     </div>
   );
 }
