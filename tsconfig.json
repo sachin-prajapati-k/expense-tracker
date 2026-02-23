@@ -1,6 +1,9 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+    "jsx": "react-jsx",   // ✅ VERY IMPORTANT
+    "lib": ["dom", "es6"], 
+    "types": ["react", "react-dom"],
     // File Layout
     // "rootDir": "./src",
     // "outDir": "./dist",
@@ -9,10 +12,11 @@
     // See also https://aka.ms/tsconfig/module
     "module": "esnext",
     "target": "esnext",
+    // DOM + modern JS libs for React in the browser
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     // include React typing packages so JSX works
     "types": ["react", "react-dom"],
     // For nodejs:
-    // "lib": ["esnext"],
     // "types": ["node"],
     // and npm install -D @types/node
 
@@ -38,7 +42,6 @@
     "jsx": "react-jsx",
     // "verbatimModuleSyntax": true,  // disabled to avoid CommonJS import/export warning
     "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true
   }
