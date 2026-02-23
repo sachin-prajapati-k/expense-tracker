@@ -1,7 +1,8 @@
-import ExpenseCard from "./components";
-
-function App() {
-  return <div></div>;
+import Expense from "./components/index.tsx";
+export default function App() {
+  return (
+    <div>
+      <Expense />
+    </div>
+  );
 }
-
-export default App;
