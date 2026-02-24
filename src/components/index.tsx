@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { ENewExpense } from "../types/types";
 import ExpenseCard from "./Expensecard";
-
+import useExpneses from "../customHooks/useExpenses";
 export default function Expense() {
+  const { expenses, addExpenses } = useExpneses();
   const [description, setDescription] = useState<string>("");
-  const [expenses, setExpense] = useState<ENewExpense[]>([]);
   const [amount, setAmount] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
-  const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const categories: string[] = [
     "Food",
     "Electronics",
@@ -18,24 +17,20 @@ export default function Expense() {
     "Other",
   ];
 
-  const addExpense = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     if (!description || !amount) return;
-    const NewExpense: ENewExpense = {
+    addExpenses({
       id: Date.now(),
       amount: parseFloat(String(amount)),
       category,
       description: description.trim(),
       date: new Date().toISOString().split("T")[0],
-    };
-    const updatedExpenses = [NewExpense, ...expenses];
-    setExpense(updatedExpenses);
+    });
+
     setDescription("");
     setAmount(null);
-    const newTotalAmount = updatedExpenses.reduce((total, eAmount) => total + (eAmount.amount ?? 0), 0);
-    setTotalAmount(newTotalAmount);
   };
-  console.log(expenses);
   return (
     <>
       <div className="flex  gap-6 p-6 ">
@@ -46,7 +41,7 @@ export default function Expense() {
           {/* <div className=" text-2xl my-4 font-bold bg-blue-100 text-green-600 rounded-xl"> */}
           <form
             className=" mx-auto p-6 bg-white rounded-xl shadow-xl space-y-4 text-2xl"
-            onSubmit={addExpense}
+            onSubmit={handleSubmit}
           >
             <legend>Your Expenses</legend>
             <div className=" ">
@@ -97,15 +92,13 @@ export default function Expense() {
             <input
               type="submit"
               value={"Add Expense"}
-              className="bg-blue-500 w-1/2 cursor-pointer rounded-2xl py-1 text-2xl" 
-            
+              className="bg-blue-500 w-1/2 cursor-pointer rounded-2xl py-1 text-2xl"
             />
           </form>
         </div>
         <div className="w-1/2">
-          <ExpenseCard expenses={expenses} totalExpense={totalAmount}/>
+          <ExpenseCard />
         </div>
-     
       </div>
       {/* </div> */}
     </>
