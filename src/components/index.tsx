@@ -7,6 +7,7 @@ export default function Expense() {
   const [expenses, setExpense] = useState<ENewExpense[]>([]);
   const [amount, setAmount] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
+  const [totalAmount, setTotalAmount] = useState<number | null>(null);
   const categories: string[] = [
     "Food",
     "Electronics",
@@ -27,12 +28,12 @@ export default function Expense() {
       description: description.trim(),
       date: new Date().toISOString().split("T")[0],
     };
-    setExpense([NewExpense, ...expenses]);
+    const updatedExpenses = [NewExpense, ...expenses];
+    setExpense(updatedExpenses);
     setDescription("");
     setAmount(null);
-    const totalAmount = amount
-      ? expenses.reduce((total, eAmount) => total + (eAmount.amount ?? 0), 0)
-      : null;
+    const newTotalAmount = updatedExpenses.reduce((total, eAmount) => total + (eAmount.amount ?? 0), 0);
+    setTotalAmount(newTotalAmount);
   };
   console.log(expenses);
   return (
@@ -96,12 +97,13 @@ export default function Expense() {
             <input
               type="submit"
               value={"Add Expense"}
-              className="bg-blue-500 w-1/3 cursor-pointer rounded-2xl py-1 text-2xl"
+              className="bg-blue-500 w-1/2 cursor-pointer rounded-2xl py-1 text-2xl" 
+            
             />
           </form>
         </div>
         <div className="w-1/2">
-          <ExpenseCard {...expenses} />
+          <ExpenseCard expenses={expenses} totalExpense={totalAmount}/>
         </div>
      
       </div>
