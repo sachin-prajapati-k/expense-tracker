@@ -1,12 +1,16 @@
-import useExpenses from "../customHooks/useExpenses";
 import { ENewExpense } from "../types/types";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
+  removeExpense: (id: number) => void;
+  totalAmount: number;
 };
 
-export default function ExpenseCard(){
-  const {expenses, removeExpense, getTotalAmount } = useExpenses();
+export default function ExpenseCard({
+  expenses,
+  removeExpense,
+  totalAmount,
+}: ExpenseCardProps) {
   return (
     <>
       <div
@@ -15,7 +19,7 @@ export default function ExpenseCard(){
         {expenses.length > 0 ? (
           <div>
             <header className="italic">
-              Total Expense: ₹{getTotalAmount().toFixed(2)}
+              Total Expense: ₹{totalAmount.toFixed(2)}
             </header>
             {expenses.map((expense: ENewExpense, index: number) => (
               <div
@@ -24,7 +28,10 @@ export default function ExpenseCard(){
               >
                 <h5 className="text-2xl flex justify-between px-2 text-right rounded-xl bg-[#3cf784] font-bold">
                   {" "}
-                  <button className="bg-[#ff0000dd] rounded-lg p-1 text-sm" onClick={() => removeExpense(expense.id)}>
+                  <button
+                    className="bg-[#ff0000dd] rounded-lg p-1 text-sm"
+                    onClick={() => removeExpense(expense.id)}
+                  >
                     Delete
                   </button>
                   <span className="px-2 text-blue-800">

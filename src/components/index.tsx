@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ENewExpense } from "../types/types";
 import ExpenseCard from "./Expensecard";
-import useExpneses from "../customHooks/useExpenses";
+import useExpenses from "../customHooks/useExpenses";
+
 export default function Expense() {
-  const { expenses, addExpenses } = useExpneses();
+  const { expenses, addExpenses, removeExpense, getTotalAmount } =
+    useExpenses();
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
@@ -97,7 +99,11 @@ export default function Expense() {
           </form>
         </div>
         <div className="w-1/2">
-          <ExpenseCard />
+          <ExpenseCard
+            expenses={expenses}
+            removeExpense={removeExpense}
+            totalAmount={getTotalAmount()}
+          />
         </div>
       </div>
       {/* </div> */}
