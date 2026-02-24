@@ -27,9 +27,9 @@ body {
 }
 
 .heading {
-  @apply fixed top-4 left-4 
+  @apply  top-4 
 bg-white px-6 py-3 rounded-2xl shadow-2xl 
-text-2xl font-bold text-gray-800 text-center flex-1 w-1/2;
+text-2xl font-bold text-gray-800 text-center ;
 }
 
 .heading {

@@ -37,8 +37,8 @@ export default function Expense() {
   console.log(expenses);
   return (
     <>
-      <div className="content-box">
-        <div className="heading">
+      <div className="flex  gap-6 p-6 ">
+        <div className="heading ">
           <div className=" text-4xl text-black font-bold ">
             Personal Expense Tracker
           </div>
@@ -100,9 +100,10 @@ export default function Expense() {
             />
           </form>
         </div>
-        <div className="list-box">
+        <div className="w-1/2">
           <ExpenseCard {...expenses} />
         </div>
+     
       </div>
       {/* </div> */}
     </>
