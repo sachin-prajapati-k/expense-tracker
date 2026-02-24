@@ -18,9 +18,8 @@ export default function ExpenseCard({ expenses, totalExpense }: ExpenseCardProps
             </header>
             {expenses.map((expense: ENewExpense) => (
               <div key={expense.id} className="my-1 p-1">
-                <h5 >{expense.category}</h5>
-                <p>{expense.description}</p>
-                <p className="text-blue-500">{expense.amount}</p>
+                <h5  className="text-2xl px-2 text-right rounded-xl bg-[#3cf784] font-bold">Category: <span className="px-2 text-blue-800">{expense.category}</span></h5>
+                <p className="text flex gap-2 justify-between"><span> {expense.description}</span><span>{expense.amount}</span></p>
                 <p className="text-lg">{expense.date}</p>
               </div>
             ))}
