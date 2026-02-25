@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ENewExpense } from "../types/types";
 import useLocalStorage from "./useLocalStorage";
 
