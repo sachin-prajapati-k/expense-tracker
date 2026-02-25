@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { ENewExpense } from "../types/types";
+import useLocalStorage from "./useLocalStorage";
 
 const useExpenses = () => {
-  const [expenses, setExpenses] = useState<ENewExpense[]>([]);
+  const [expenses, setExpenses] = useLocalStorage<ENewExpense[]>(
+    "expenses",
+    [],
+  );
   const addExpenses = (expenseData: ENewExpense) => {
     const newExpense = {
       ...expenseData,
-      
     };
     return setExpenses((prevExpenses) => [newExpense, ...prevExpenses]);
   };
