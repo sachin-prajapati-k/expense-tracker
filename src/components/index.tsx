@@ -7,7 +7,7 @@ export default function Expense() {
     useExpenses();
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
-  const [category, setCategory] = useState<string>("");
+  const [category, setCategory] = useState<string | undefined>(undefined);
   const categories: string[] = [
     "Food",
     "Electronics",
@@ -82,6 +82,7 @@ export default function Expense() {
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
+                required
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
