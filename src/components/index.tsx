@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ENewExpense } from "../types/types";
 import ExpenseCard from "./Expensecard";
 import useExpenses from "../customHooks/useExpenses";
 
@@ -102,7 +101,7 @@ export default function Expense() {
           <ExpenseCard
             expenses={expenses}
             removeExpense={removeExpense}
-            totalAmount={getTotalAmount()}
+            totalAmount={getTotalAmount}
           />
         </div>
       </div>

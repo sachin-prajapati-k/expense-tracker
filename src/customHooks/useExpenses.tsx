@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ENewExpense } from "../types/types";
 import useLocalStorage from "./useLocalStorage";
 
@@ -17,13 +18,13 @@ const useExpenses = () => {
       prevExpenses.filter((expense) => expense.id !== id),
     );
   };
-  const getTotalAmount = () => {
+  const getTotalAmount = useMemo(() => {
     const totalExpenseAmount = expenses.reduce(
       (total, expense) => total + (expense.amount ?? 0),
       0,
     );
     return totalExpenseAmount;
-  };
+  }, [expenses]);
   const getExpenseByCategory = (category: string) => {
     if (!category || category === "All") return expenses;
     return expenses.filter((expense) => expense.category === category);
