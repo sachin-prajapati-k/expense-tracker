@@ -1,15 +1,29 @@
+
 import { ENewExpense } from "../types/types";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
   removeExpense: (id: number) => void;
   totalAmount: number;
+  category: string[];
+  getExpenseByCategory: (category: string | undefined) => string;
 };
+const categories: string[] = [
+  "Other",
+  "Food",
+  "Electronics",
+  "Recharges",
+  "Rent",
+  "Office",
+  "Transportation",
+];
 
 export default function ExpenseCard({
   expenses,
   removeExpense,
   totalAmount,
+  category,
+  getExpenseByCategory,
 }: ExpenseCardProps) {
   return (
     <>
@@ -19,7 +33,24 @@ export default function ExpenseCard({
         {expenses.length > 0 ? (
           <div>
             <header className="italic">
-              Total Expense: ₹{totalAmount.toFixed(2)}
+              <span>Total Expense: ₹{totalAmount.toFixed(2)}</span>
+              <span>
+                Filter by Expense:
+                <select
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  value={category || ""}
+                  onChange={(e) => getExpenseByCategory(e.target.value)}
+                  required
+                >
+                  <option value="">Select a category</option>
+                  {category.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </span>
+              categories
             </header>
             {expenses.map((expense: ENewExpense, index: number) => (
               <div

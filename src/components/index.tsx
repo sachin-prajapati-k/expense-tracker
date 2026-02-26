@@ -3,24 +3,29 @@ import ExpenseCard from "./Expensecard";
 import useExpenses from "../customHooks/useExpenses";
 
 export default function Expense() {
-  const { expenses, addExpenses, removeExpense, getTotalAmount } =
-    useExpenses();
+  const {
+    expenses,
+    addExpenses,
+    removeExpense,
+    getTotalAmount,
+    getExpenseByCategory,
+  } = useExpenses();
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
-  const [category, setCategory] = useState<string | undefined>(undefined);
+  const [category, setCategory] = useState<string>();
   const categories: string[] = [
+    "Other",
     "Food",
     "Electronics",
     "Recharges",
     "Rent",
     "Office",
     "Transportation",
-    "Other",
   ];
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (!description || !amount) return;
+    if (!description || !amount || !category) return;
     addExpenses({
       id: Date.now(),
       amount: parseFloat(String(amount)),
@@ -80,10 +85,11 @@ export default function Expense() {
               </label>
               <select
                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                value={category}
+                value={category || ""}
                 onChange={(e) => setCategory(e.target.value)}
                 required
               >
+                <option value="">Select a category</option>
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
                     {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -103,6 +109,8 @@ export default function Expense() {
             expenses={expenses}
             removeExpense={removeExpense}
             totalAmount={getTotalAmount}
+            category={categories}
+            getExpenseByCategory={category}
           />
         </div>
       </div>
