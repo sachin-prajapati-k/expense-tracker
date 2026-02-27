@@ -39,7 +39,7 @@ export default function ExpenseCard({
               <span>
                 Filter by Expense:
                 <select
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className=" px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                   value={category || ""}
                   onChange={(e) => setFilterCategory(e.target.value)}
                   required
@@ -52,7 +52,6 @@ export default function ExpenseCard({
                   ))}
                 </select>
               </span>
-              categories
             </header>
             {expenses.map((expense: ENewExpense, index: number) => (
               <div
