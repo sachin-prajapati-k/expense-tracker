@@ -1,30 +1,72 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { EFilterTypes, ENewExpense } from "../types/types";
 
-export default function useFilter=(data:ENewExpense[])=>{
-    const [filters,setFilters]=useState<EFilterTypes>({
-        category:"All",
-        dateFrom:'',
-        dateTo:'',
-        minAmount:undefined,
-        maxAmount:undefined,
-        searchTerm:''
-    })
+export default function useFilter(data: ENewExpense[]) {
+  const [filters, setFilters] = useState<EFilterTypes>({
+    category: "All",
+    dateFrom: "",
+    dateTo: "",
+    minAmount: null,
+    maxAmount: null,
+    searchTerm: "",
+  });
 
-    const updateFilter=(key:string,value:any)=>{
-        setFilters((prevFilters)=>({...prevFilters,[key]:value}))
-    }
-    const clearFilter=()=>{
-        setFilters({
-        category:"All",
-        dateFrom:'',
-        dateTo:'',
-        minAmount:undefined,
-        maxAmount:undefined,
-        searchTerm:''
-        })
-    }
-return(
+  const updateFilter = (key: string, value: any) => {
+    setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
+  };
+  const clearFilter = () => {
+    setFilters({
+      category: "All",
+      dateFrom: "",
+      dateTo: "",
+      minAmount: null,
+      maxAmount: null,
+      searchTerm: "",
+    });
+  };
 
-)
+  const filterdData = useMemo(() => {
+    return data.filter((item) => {
+      if (filters.category !== "All" && item.category !== filters.category) {
+        return false;
+      }
+      if (filters.dateFrom && (item.date ?? "") < filters.dateFrom) {
+        return false;
+      }
+      if (filters.minAmount && (item.amount ?? 0) < filters.minAmount) {
+        return false;
+      }
+
+      if (filters.maxAmount && (item.amount ?? 0) > filters.maxAmount) {
+        return false;
+      }
+      if (
+        filters.searchTerm &&
+        item.description
+          .toLowerCase()
+          .includes(filters.searchTerm.toLowerCase())
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [data, filters]);
+  const getFilterSummary = () => {
+    const activeFilters = Object.entries(filters).filter(([key, value]) => {
+      if (key === "category") return value !== "All";
+      return value !== "";
+    });
+    return {
+      activeCount: activeFilters.length,
+      totalResult: filterdData.length,
+      hasActiveFilter: activeFilters.length > 0,
+    };
+  };
+  return {
+    filterdData,
+    filters,
+    updateFilter,
+    clearFilter,
+    getFilterSummary,
+  };
 }

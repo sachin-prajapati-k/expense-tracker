@@ -15,7 +15,7 @@ export type EFilterTypes={
       category:string,
         dateFrom:string,
         dateTo:string,
-        minAmount:number |undefined,
-        maxAmount:number | undefined,
+        minAmount:number |null,
+        maxAmount:number | null,
         searchTerm:string
 }
