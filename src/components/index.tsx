@@ -110,7 +110,7 @@ export default function Expense() {
             removeExpense={removeExpense}
             totalAmount={getTotalAmount}
             category={categories}
-            getExpenseByCategory={category}
+            getExpenseByCategory={getExpenseByCategory}
           />
         </div>
       </div>

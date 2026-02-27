@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 import { ENewExpense } from "../types/types";
 
 type ExpenseCardProps = {
@@ -6,17 +6,8 @@ type ExpenseCardProps = {
   removeExpense: (id: number) => void;
   totalAmount: number;
   category: string[];
-  getExpenseByCategory: (category: string | undefined) => string;
+  getExpenseByCategory: (category: string) => ENewExpense[];
 };
-const categories: string[] = [
-  "Other",
-  "Food",
-  "Electronics",
-  "Recharges",
-  "Rent",
-  "Office",
-  "Transportation",
-];
 
 export default function ExpenseCard({
   expenses,
@@ -25,6 +16,17 @@ export default function ExpenseCard({
   category,
   getExpenseByCategory,
 }: ExpenseCardProps) {
+  const [filterCategory, setFilterCategory] = useState("All");
+  const categories: string[] = [
+    "Other",
+    "Food",
+    "Electronics",
+    "Recharges",
+    "Rent",
+    "Office",
+    "Transportation",
+  ];
+  getExpenseByCategory(filterCategory);
   return (
     <>
       <div
@@ -39,11 +41,11 @@ export default function ExpenseCard({
                 <select
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                   value={category || ""}
-                  onChange={(e) => getExpenseByCategory(e.target.value)}
+                  onChange={(e) => setFilterCategory(e.target.value)}
                   required
                 >
                   <option value="">Select a category</option>
-                  {category.map((cat) => (
+                  {categories.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat.charAt(0).toUpperCase() + cat.slice(1)}
                     </option>
