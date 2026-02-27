@@ -18,6 +18,7 @@ export default function ExpenseCard({
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
   const categories: string[] = [
+    "All",
     "Other",
     "Food",
     "Electronics",
@@ -26,7 +27,12 @@ export default function ExpenseCard({
     "Office",
     "Transportation",
   ];
-  getExpenseByCategory(filterCategory);
+  const filteredExpenses = getExpenseByCategory(filterCategory);
+  const filteredTotal = filteredExpenses.reduce(
+    (total, expense) => total + (expense.amount ?? 0),
+    0,
+  );
+
   return (
     <>
       <div
@@ -35,16 +41,16 @@ export default function ExpenseCard({
         {expenses.length > 0 ? (
           <div>
             <header className="italic flex gap-3">
-              <span>Total Expense: ₹{totalAmount.toFixed(2)}</span>
+              <span>Total Expense: ₹{filteredTotal.toFixed(2)}</span>
               <span>
                 Filter by Expense:
                 <select
                   className=" px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  value={category || ""}
+                  value={category}
                   onChange={(e) => setFilterCategory(e.target.value)}
                   required
                 >
-                  <option value="">Select a category</option>
+                  <option value="All">Choose a Category</option>
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat.charAt(0).toUpperCase() + cat.slice(1)}
@@ -53,7 +59,7 @@ export default function ExpenseCard({
                 </select>
               </span>
             </header>
-            {expenses.map((expense: ENewExpense, index: number) => (
+            {filteredExpenses.map((expense: ENewExpense, index: number) => (
               <div
                 key={expense.id}
                 className="my-1 bg-[#fff0cc] py-0 rounded-2xl"
