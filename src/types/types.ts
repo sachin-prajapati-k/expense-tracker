@@ -9,3 +9,13 @@ export type ENewExpense = {
   description: string;
   date: string | undefined;
 };
+
+
+export type EFilterTypes={
+      category:string,
+        dateFrom:string,
+        dateTo:string,
+        minAmount:number |undefined,
+        maxAmount:number | undefined,
+        searchTerm:string
+}
