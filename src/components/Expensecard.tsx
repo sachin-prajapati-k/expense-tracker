@@ -34,7 +34,7 @@ export default function ExpenseCard({
       >
         {expenses.length > 0 ? (
           <div>
-            <header className="italic">
+            <header className="italic flex gap-3">
               <span>Total Expense: ₹{totalAmount.toFixed(2)}</span>
               <span>
                 Filter by Expense:
