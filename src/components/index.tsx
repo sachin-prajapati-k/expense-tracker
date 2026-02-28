@@ -118,7 +118,7 @@ export default function Expense() {
             filters={filters}
             updateFilter={updateFilter}
             clearFilter={clearFilter}
-            getFilterSummary={getFilterSummary}
+            getFilterSummary={getFilterSummary()}
           />
         </div>
       </div>

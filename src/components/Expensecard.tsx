@@ -4,6 +4,7 @@ import {
   EgetFilterSummaryType,
   ENewExpense,
 } from "../types/types";
+import { clear } from "@testing-library/user-event/dist/clear";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
@@ -14,7 +15,7 @@ type ExpenseCardProps = {
   filters: EFilterTypes;
   updateFilter: (key: keyof EFilterTypes, value: any) => void;
   clearFilter: () => void;
-  getFilterSummary: () => EgetFilterSummaryType;
+  getFilterSummary: EgetFilterSummaryType;
 };
 
 export default function ExpenseCard({
@@ -44,11 +45,15 @@ export default function ExpenseCard({
           <div>
             <header className="italic flex gap-4 flex-wrap">
               <div>
+                <span>
+                  Showing {getFilterSummary.totalResult} records from{" "}
+                  {expenses.length}
+                </span>
+                <br />
                 <span>Total Expense: ₹{filteredTotal.toFixed(2)}</span>
                 <span>
-                  Filter by Expense:
                   <select
-                    className=" px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className=" px-4 py-2 mx-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                     value={filterCategory}
                     onChange={(e) => setFilterCategory(e.target.value)}
                     required
@@ -113,9 +118,15 @@ export default function ExpenseCard({
                   />
                 </span>
                 <span>
-                  {
-                    getFilterSummary.
-                  }
+                  {getFilterSummary.hasActiveFilter && (
+                    <button
+                      type="submit"
+                      onClick={clearFilter}
+                      className="bg-blue-500 border rounded-xl text-white p-2"
+                    >
+                      clear filters {getFilterSummary.activeCount}
+                    </button>
+                  )}
                 </span>
               </div>
             </header>
