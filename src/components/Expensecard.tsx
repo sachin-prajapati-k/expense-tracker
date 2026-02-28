@@ -12,7 +12,7 @@ type ExpenseCardProps = {
   clearFilter: () => void;
   getFilterSummary: () => EgetFilterSummaryType;
 };
-
+  
 export default function ExpenseCard({
   expenses,
   removeExpense,
