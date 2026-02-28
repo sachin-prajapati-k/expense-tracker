@@ -1,5 +1,9 @@
 import { useMemo, useState } from "react";
-import { EFilterTypes, ENewExpense } from "../types/types";
+import {
+  EFilterTypes,
+  EgetFilterSummaryType,
+  ENewExpense,
+} from "../types/types";
 
 export default function useFilter(data: ENewExpense[]) {
   const [filters, setFilters] = useState<EFilterTypes>({
@@ -51,7 +55,7 @@ export default function useFilter(data: ENewExpense[]) {
       return true;
     });
   }, [data, filters]);
-  const getFilterSummary = () => {
+  const getFilterSummary = <T extends EgetFilterSummaryType>(): T => {
     const activeFilters = Object.entries(filters).filter(([key, value]) => {
       if (key === "category") return value !== "All";
       return value !== "";
@@ -60,7 +64,7 @@ export default function useFilter(data: ENewExpense[]) {
       activeCount: activeFilters.length,
       totalResult: filterdData.length,
       hasActiveFilter: activeFilters.length > 0,
-    };
+    } as T;
   };
   return {
     filterdData,
