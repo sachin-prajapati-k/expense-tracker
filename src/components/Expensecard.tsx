@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ENewExpense } from "../types/types";
+import { EFilterTypes, EgetFilterSummaryType, ENewExpense } from "../types/types";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
@@ -7,10 +7,10 @@ type ExpenseCardProps = {
   totalAmount: number;
   category: string[];
   getExpenseByCategory: (category: string) => ENewExpense[];
-  filters:;
-  updateFilter;
-  clearFilter;
-  getFilterSummary;
+  filters: EFilterTypes;
+  updateFilter: (key: keyof EFilterTypes, value: any) => void;
+  clearFilter: () => void;
+  getFilterSummary: () => EgetFilterSummaryType;
 };
 
 export default function ExpenseCard({
@@ -19,22 +19,8 @@ export default function ExpenseCard({
   totalAmount,
   category,
   getExpenseByCategory,
-  filters,
-  updateFilter,
-  clearFilter,
-  getFilterSummary,
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
-  const categories: string[] = [
-    "All",
-    "Other",
-    "Food",
-    "Electronics",
-    "Recharges",
-    "Rent",
-    "Office",
-    "Transportation",
-  ];
   const filteredExpenses = getExpenseByCategory(filterCategory);
   const filteredTotal = filteredExpenses.reduce(
     (total, expense) => total + (expense.amount ?? 0),
@@ -54,19 +40,18 @@ export default function ExpenseCard({
                 Filter by Expense:
                 <select
                   className=" px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  value={category}
+                  value={filterCategory}
                   onChange={(e) => setFilterCategory(e.target.value)}
                   required
                 >
                   <option value="All">Choose a Category</option>
-                  {categories.map((cat) => (
+                  {category.map((cat) => (
                     <option key={cat} value={cat}>
                       {cat.charAt(0).toUpperCase() + cat.slice(1)}
                     </option>
                   ))}
                 </select>
               </span>
-              <input value={} />
             </header>
             {filteredExpenses.map((expense: ENewExpense, index: number) => (
               <div

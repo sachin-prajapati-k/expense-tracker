@@ -115,10 +115,10 @@ export default function Expense() {
             totalAmount={getTotalAmount}
             category={categories}
             getExpenseByCategory={getExpenseByCategory}
-            filters
-            updateFilter
-            clearFilter
-            getFilterSummary
+            filters={filters}
+            updateFilter={updateFilter}
+            clearFilter={clearFilter}
+            getFilterSummary={getFilterSummary}
           />
         </div>
       </div>

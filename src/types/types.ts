@@ -10,12 +10,17 @@ export type ENewExpense = {
   date: string | undefined;
 };
 
+export type EFilterTypes = {
+  category: string;
+  dateFrom: string;
+  dateTo: string;
+  minAmount: number | null;
+  maxAmount: number | null;
+  searchTerm: string;
+};
 
-export type EFilterTypes={
-      category:string,
-        dateFrom:string,
-        dateTo:string,
-        minAmount:number |null,
-        maxAmount:number | null,
-        searchTerm:string
-}
+export type EgetFilterSummaryType = {
+  activeCount: number;
+  totalResult: number;
+  hasActiveFilter: boolean;
+};
