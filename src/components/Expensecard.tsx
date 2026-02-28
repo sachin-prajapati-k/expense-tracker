@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { EFilterTypes, EgetFilterSummaryType, ENewExpense } from "../types/types";
+import {
+  EFilterTypes,
+  EgetFilterSummaryType,
+  ENewExpense,
+} from "../types/types";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
@@ -12,13 +16,17 @@ type ExpenseCardProps = {
   clearFilter: () => void;
   getFilterSummary: () => EgetFilterSummaryType;
 };
-  
+
 export default function ExpenseCard({
   expenses,
   removeExpense,
   totalAmount,
   category,
   getExpenseByCategory,
+  filters,
+  clearFilter,
+  getFilterSummary,
+  updateFilter,
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
   const filteredExpenses = getExpenseByCategory(filterCategory);
@@ -51,6 +59,46 @@ export default function ExpenseCard({
                     </option>
                   ))}
                 </select>
+              </span>
+              <span>
+                <input
+                  value={filters.searchTerm}
+                  type="text"
+                  placeholder="type for search"
+                  onChange={(e) => updateFilter("searchTerm", e.target.value)}
+                />
+              </span>
+              <span>
+                <input
+                  value={Number(filters.minAmount)}
+                  type="number"
+                  placeholder="min value"
+                  onChange={(e) => updateFilter("minAmount", e.target.value)}
+                />
+              </span>
+              <span>
+                <input
+                  value={Number(filters.maxAmount)}
+                  type="number"
+                  placeholder="max value"
+                  onChange={(e) => updateFilter("maxAmount", e.target.value)}
+                />
+              </span>
+              <span>
+                <input
+                  value={filters.dateFrom}
+                  type="date"
+                  placeholder="from Date"
+                  onChange={(e) => updateFilter("dateFrom", e.target.value)}
+                />
+              </span>{" "}
+              <span>
+                <input
+                  value={filters.dateFrom}
+                  type="date"
+                  placeholder="to Date"
+                  onChange={(e) => updateFilter("dateTo", e.target.value)}
+                />
               </span>
             </header>
             {filteredExpenses.map((expense: ENewExpense, index: number) => (
