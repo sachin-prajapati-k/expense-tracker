@@ -7,6 +7,10 @@ type ExpenseCardProps = {
   totalAmount: number;
   category: string[];
   getExpenseByCategory: (category: string) => ENewExpense[];
+  filters:;
+  updateFilter;
+  clearFilter;
+  getFilterSummary;
 };
 
 export default function ExpenseCard({
@@ -15,6 +19,10 @@ export default function ExpenseCard({
   totalAmount,
   category,
   getExpenseByCategory,
+  filters,
+  updateFilter,
+  clearFilter,
+  getFilterSummary,
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
   const categories: string[] = [
@@ -58,6 +66,7 @@ export default function ExpenseCard({
                   ))}
                 </select>
               </span>
+              <input value={} />
             </header>
             {filteredExpenses.map((expense: ENewExpense, index: number) => (
               <div

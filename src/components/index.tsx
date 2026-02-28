@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ExpenseCard from "./Expensecard";
 import useExpenses from "../customHooks/useExpenses";
+import useFilter from "../customHooks/useFilter";
 
 export default function Expense() {
   const {
@@ -10,10 +11,13 @@ export default function Expense() {
     getTotalAmount,
     getExpenseByCategory,
   } = useExpenses();
+  const { filterdData, filters, updateFilter, clearFilter, getFilterSummary } =
+    useFilter(expenses);
   const [description, setDescription] = useState<string>("");
   const [amount, setAmount] = useState<number | null>(null);
   const [category, setCategory] = useState<string>();
   const categories: string[] = [
+    "All",
     "Other",
     "Food",
     "Electronics",
@@ -111,6 +115,10 @@ export default function Expense() {
             totalAmount={getTotalAmount}
             category={categories}
             getExpenseByCategory={getExpenseByCategory}
+            filters
+            updateFilter
+            clearFilter
+            getFilterSummary
           />
         </div>
       </div>
