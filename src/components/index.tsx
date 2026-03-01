@@ -32,7 +32,7 @@ export default function Expense() {
     if (!description || !amount || !category) return;
     addExpenses({
       id: Date.now(),
-      amount: (String(amount)),
+      amount: String(amount),
       category,
       description: description.trim(),
       date: new Date().toISOString().split("T")[0],
