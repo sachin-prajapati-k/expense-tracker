@@ -30,7 +30,7 @@ export default function ExpenseCard({
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
   const filteredTotal = expenses.reduce(
-    (total, expense) => total + (expense.amount ?? 0),
+    (total, expense) => total + parseFloat(expense.amount ?? ""),
     0,
   );
 
@@ -109,7 +109,7 @@ export default function ExpenseCard({
                 <span>
                   <input
                     className="border p-1 rounded-lg mx-2"
-                    value={filters.dateFrom}
+                    value={filters.dateTo}
                     type="date"
                     placeholder="to Date"
                     onChange={(e) => updateFilter("dateTo", e.target.value)}

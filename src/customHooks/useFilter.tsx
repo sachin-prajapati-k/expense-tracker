@@ -23,8 +23,8 @@ export default function useFilter(data: ENewExpense[]) {
       category: "All",
       dateFrom: "",
       dateTo: "",
-      minAmount: undefined,
-      maxAmount: undefined,
+      minAmount: "",
+      maxAmount: "",
       searchTerm: "",
     });
   };
@@ -34,21 +34,33 @@ export default function useFilter(data: ENewExpense[]) {
       if (filters.category !== "All" && item.category !== filters.category) {
         return false;
       }
-      if (filters.dateFrom && (item.date ?? "") < filters.dateFrom) {
-        return false;
+      const itemDate = (item.date ?? "").trim();
+      if (filters.dateFrom) {
+        if (!itemDate || itemDate < filters.dateFrom) return false;
       }
-      if (filters.minAmount && (item.amount ?? 0) < filters.minAmount) {
+      if (filters.dateTo) {
+        if (itemDate || filters.dateTo< itemDate  ) return true;
+      }
+      if (
+        filters.minAmount &&
+        item.amount != null &&  
+        !(item.amount < filters.minAmount)
+      ) {
         return false;
       }
 
-      if (filters.maxAmount && (item.amount ?? 0) > filters.maxAmount) {
+      if (
+        filters.maxAmount &&
+        item.amount != null &&
+        !(item.amount > filters.maxAmount)
+      ) {
         return false;
       }
       if (
         filters.searchTerm &&
-        filters.searchTerm
+        !item.description
           .toLowerCase()
-          .includes(item.description.toLowerCase())
+          .includes(filters.searchTerm.toLowerCase())
       ) {
         return false;
       }
@@ -58,7 +70,7 @@ export default function useFilter(data: ENewExpense[]) {
   const getFilterSummary = <T extends EgetFilterSummaryType>(): T => {
     const activeFilters = Object.entries(filters).filter(([key, value]) => {
       if (key === "category") return value !== "All";
-      return value !== "";
+      return value != null && value !== "";
     });
     return {
       activeCount: activeFilters.length,

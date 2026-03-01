@@ -4,7 +4,7 @@ export type EDescription = {
 
 export type ENewExpense = {
   id: number;
-  amount: number | null;
+  amount: string | null;
   category: string;
   description: string;
   date: string | undefined;
@@ -14,8 +14,8 @@ export type EFilterTypes = {
   category: string;
   dateFrom: string;
   dateTo: string;
-  minAmount: number | undefined;
-  maxAmount: number | undefined;
+  minAmount: string | undefined;
+  maxAmount: string | undefined;
   searchTerm: string | undefined;
 };
 

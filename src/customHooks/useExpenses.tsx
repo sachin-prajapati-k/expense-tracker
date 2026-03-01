@@ -20,7 +20,7 @@ const useExpenses = () => {
   };
   const getTotalAmount = useMemo(() => {
     const totalExpenseAmount = expenses.reduce(
-      (total, expense) => total + (expense.amount ?? 0),
+      (total, expense) => total + parseFloat(expense.amount ?? ""),
       0,
     );
     return totalExpenseAmount;
