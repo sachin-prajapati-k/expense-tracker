@@ -39,11 +39,11 @@ export default function useFilter(data: ENewExpense[]) {
         if (!itemDate || itemDate < filters.dateFrom) return false;
       }
       if (filters.dateTo) {
-        if (itemDate || filters.dateTo< itemDate  ) return true;
+        if (itemDate || filters.dateTo < itemDate) return true;
       }
       if (
         filters.minAmount &&
-        item.amount != null &&  
+        item.amount != null &&
         !(item.amount < filters.minAmount)
       ) {
         return false;

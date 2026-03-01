@@ -29,6 +29,7 @@ export default function ExpenseCard({
   updateFilter,
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
+  getExpenseByCategory(filterCategory);
   const filteredTotal = expenses.reduce(
     (total, expense) => total + parseFloat(expense.amount ?? ""),
     0,
@@ -53,7 +54,7 @@ export default function ExpenseCard({
                   <select
                     className=" px-4 py-2 mx-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                     value={filterCategory}
-                    onChange={(e) => setFilterCategory(e.target.value)}
+                    onChange={(e) => updateFilter("category", e.target.value)}
                     required
                   >
                     <option value="All">Choose a Category</option>
