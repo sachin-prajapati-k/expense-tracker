@@ -14,9 +14,9 @@ export type EFilterTypes = {
   category: string;
   dateFrom: string;
   dateTo: string;
-  minAmount: number | null;
-  maxAmount: number | null;
-  searchTerm: string;
+  minAmount: number | undefined;
+  maxAmount: number | undefined;
+  searchTerm: string | undefined;
 };
 
 export type EgetFilterSummaryType = {

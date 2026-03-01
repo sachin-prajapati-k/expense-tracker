@@ -110,7 +110,7 @@ export default function Expense() {
         </div>
         <div className="w-1/2">
           <ExpenseCard
-            expenses={expenses}
+            expenses={filterdData}
             removeExpense={removeExpense}
             totalAmount={getTotalAmount}
             category={categories}

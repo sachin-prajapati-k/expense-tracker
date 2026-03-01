@@ -4,7 +4,6 @@ import {
   EgetFilterSummaryType,
   ENewExpense,
 } from "../types/types";
-import { clear } from "@testing-library/user-event/dist/clear";
 
 type ExpenseCardProps = {
   expenses: ENewExpense[];
@@ -30,8 +29,7 @@ export default function ExpenseCard({
   updateFilter,
 }: ExpenseCardProps) {
   const [filterCategory, setFilterCategory] = useState("All");
-  const filteredExpenses = getExpenseByCategory(filterCategory);
-  const filteredTotal = filteredExpenses.reduce(
+  const filteredTotal = expenses.reduce(
     (total, expense) => total + (expense.amount ?? 0),
     0,
   );
@@ -130,7 +128,7 @@ export default function ExpenseCard({
                 </span>
               </div>
             </header>
-            {filteredExpenses.map((expense: ENewExpense, index: number) => (
+            {expenses.map((expense: ENewExpense, index: number) => (
               <div
                 key={expense.id}
                 className="my-1 bg-[#fff0cc] py-0 rounded-2xl"

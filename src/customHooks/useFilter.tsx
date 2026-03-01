@@ -10,9 +10,9 @@ export default function useFilter(data: ENewExpense[]) {
     category: "All",
     dateFrom: "",
     dateTo: "",
-    minAmount: null,
-    maxAmount: null,
-    searchTerm: "",
+    minAmount: undefined,
+    maxAmount: undefined,
+    searchTerm: undefined,
   });
 
   const updateFilter = (key: string, value: any) => {
@@ -23,8 +23,8 @@ export default function useFilter(data: ENewExpense[]) {
       category: "All",
       dateFrom: "",
       dateTo: "",
-      minAmount: null,
-      maxAmount: null,
+      minAmount: undefined,
+      maxAmount: undefined,
       searchTerm: "",
     });
   };
@@ -46,9 +46,9 @@ export default function useFilter(data: ENewExpense[]) {
       }
       if (
         filters.searchTerm &&
-        item.description
+        filters.searchTerm
           .toLowerCase()
-          .includes(filters.searchTerm.toLowerCase())
+          .includes(item.description.toLowerCase())
       ) {
         return false;
       }
